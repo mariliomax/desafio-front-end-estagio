@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="form.css">
+<title>Formulário de Cadastro 1</title>
+
+</head>
+<body>
+    <h1>CADASTRO FORNECEDOR/PRODUTO</h1>
+
+<!-- Formulário de Cadastro -->
+<form id="cadastroForm">
+<div class="container">
+    <div class="subtitulo">
+        <h2>Dados do fornecedor</h2>
+    </div>
+    <section  class="container_form1">
+        
+
+        
+    
+        <label for="razaoSocial">Razão Social:</label>
+        <input type="text" id="razaoSocial" name="razaoSocial" required><br><br>
+      
+        <label for="nomeFantasia">Nome Fantasia:</label>
+        <input type="text" id="nomeFantasia" name="nomeFantasia" required><br><br>
+      
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" name="cnpj" required><br><br>
+      
+        <label for="inscricaoEstadual">Inscrição Estadual:</label>
+        <input type="text" id="inscricaoEstadual" name="inscricaoEstadual"><br><br>
+      
+        <label for="inscricaoMunicipal">Inscrição Municipal:</label>
+        <input type="text" id="inscricaoMunicipal" name="inscricaoMunicipal"><br><br>
+      
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required><br><br>
+      
+        <label for="contato">Nome da pessoa de contato:</label>
+        <input type="text" id="contato" name="contato" required><br><br>
+      
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required><br><br>
+      
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+    
+    </section>
+
+
+
+</div>
+
+<br><br>
+
+<div class="subtitulo">
+    <h2>Tabela de Produtos</h2>
+</div>
+
+  <section class="container_form2">
+
+    <!-- <label for="tabelaProdutos">Tabela de Produtos:</label> -->
+    <br>
+  <table id="tabelaProdutos">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Unidade de Medida</th>
+        <th>Quantidade em Estoque</th>
+        <th>Valor Unitário</th>
+        <th>Valor Total</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" name="descricao" required></td>
+        <td><input type="text" name="unidadeMedida" required></td>
+        <td><input type="number" name="quantidadeEstoque" required></td>
+        <td><input type="number" name="valorUnitario" required></td>
+        <td><input type="number" name="valorTotal" readonly></td>
+        <td>
+            <button onclick="adicionarProduto()">Adicionar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  </section class="container_form3">
+  
+  <br><br>
+  <div class="subtitulo">
+
+    <h2>Tabela de Anexos</h2>
+</div>
+  <!-- <label for="tabelaAnexos">Tabela de Anexos:</label> -->
+  <br>
+  <table id="tabelaAnexos">
+    <thead>
+      <tr>
+        <th>Documento</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <input type="file" name="documento" required>
+        </td>
+        <td>
+          <button onclick="excluirAnexo(this)">Excluir</button>
+          <button onclick="visualizarAnexo(this)">Visualizar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table><br>
+
+  <button type="button" onclick="salvarFornecedor()">Salvar Fornecedor</button>
+</form>
+
+<!-- Modal de Loading -->
+<div id="loadingModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Enviando dados...</p>
+  </div>
+</div>
+
+<script>
+// Função para adicionar um produto na tabela
+function adicionarProduto() {
+  var table = document.getElementById("tabelaProdutos").getElementsByTagName('tbody')[0];
+  var newRow = table.insertRow(table.rows.length);
+  var cols = ["descricao", "unidadeMedida", "quantidadeEstoque", "valorUnitario", "valorTotal"];
+
+  for (var i = 0; i < cols.length; i++) {
+    var cell = newRow.insertCell(i);
+    var input = document.createElement("input");
+    input.type = "text";
+    input.name = cols[i];
+    if (cols[i] === "valorTotal") {
+      input.readOnly = true;
+    }
+    cell.appendChild(input);
+  }
+
+  var actionsCell = newRow.insertCell(cols.length);
+  actionsCell.innerHTML = '<button onclick="excluirProduto(this)">Excluir</button>';
+}
+
+// Função para excluir um produto da tabela
+function excluirProduto(button) {
+  var row = button.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
+
+// Função para excluir um anexo da tabela
+function excluirAnexo(button) {
+  var row = button.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
+
+// Função para visualizar um anexo
+function visualizarAnexo(button) {
+  // Implemente a lógica para visualizar o anexo
+}
+
+// Função para salvar o fornecedor
+function salvarFornecedor() {
+  // Implemente a lógica para salvar o fornecedor e gerar o JSON com os dados
+  var jsonExemplo = {
+    // Exemplo de estrutura do JSON
+  };
+  console.log(jsonExemplo); // Exibindo o JSON no console
+}
+
+// Ao carregar o documento
+document.addEventListener("DOMContentLoaded", function() {
+  // Código para preencher automaticamente o endereço usando uma API via CEP
+  // Implemente essa funcionalidade aqui
+});
+
+// Modal de Loading
+var modal = document.getElementById("loadingModal");
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Fechar o modal quando o usuário clicar fora dele
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
